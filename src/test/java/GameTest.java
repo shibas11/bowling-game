@@ -1,5 +1,4 @@
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -47,6 +46,7 @@ public class GameTest {
     }
 
     private class Game {
+        public static final int FRAME_SIZE = 10;
         private int score = 0;
         private int[] rolls = new int[21];
         private int currentRoll = 0;
@@ -58,8 +58,16 @@ public class GameTest {
         public Integer score() {
             int score = 0;
 
-            for (int i = 0; i < rolls.length; i++)
-                score += rolls[i];
+            int firstTry = 0;
+            for (int frame = 0; frame < FRAME_SIZE; frame++) {
+                if (rolls[firstTry] + rolls[firstTry + 1] == 10) { // spare
+                    score += 10 + rolls[firstTry + 2];
+                    firstTry += 2;
+                } else {
+                    score += rolls[firstTry] + rolls[firstTry + 1];
+                    firstTry += 2;
+                }
+            }
 
             return score;
         }
