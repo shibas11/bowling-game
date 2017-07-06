@@ -20,15 +20,19 @@ public class GameTest {
 
     @Test
     public void gutterGame() {
-        for (int i = 0; i < 20; i++)
-            game.roll(0);
+        rollMany(20, 0);
         assertThat(game.score(), is(0));
+    }
+
+    private void rollMany(int rolls, int pins) {
+        for (int i = 0; i < rolls; i++) {
+            game.roll(pins);
+        }
     }
 
     @Test
     public void allOnes() {
-        for (int i = 0; i < 20; i++)
-            game.roll(1);
+        rollMany(20, 1);
         assertThat(game.score(), is(20));
     }
 
