@@ -25,13 +25,6 @@ public class GameTest {
         assertThat(game.score(), is(0));
     }
 
-    private void rollMany(int rolls, int pins) {
-        for (int i = 0; i < rolls; i++) {
-            game.roll(pins);
-        }
-    }
-
-    @Ignore
     @Test
     public void allOnes() {
         rollMany(20, 1);
@@ -47,15 +40,27 @@ public class GameTest {
         assertThat(game.score(), is(16));
     }
 
-    private class Game {
+    private void rollMany(int rolls, int pins) {
+        for (int i = 0; i < rolls; i++) {
+            game.roll(pins);
+        }
+    }
 
+    private class Game {
         private int score = 0;
+        private int[] rolls = new int[21];
+        private int currentRoll = 0;
 
         public void roll(int pins) {
-            score += pins;
+            rolls[currentRoll++] = pins;
         }
 
         public Integer score() {
+            int score = 0;
+
+            for (int i = 0; i < rolls.length; i++)
+                score += rolls[i];
+
             return score;
         }
     }
