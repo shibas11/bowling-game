@@ -1,11 +1,28 @@
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameTest {
+
+    private Game game;
+
+    @Before
+    public void setUp() throws Exception {
+        game = new Game();
+    }
+
     @Test
     public void canCreateGame() {
         Game game = new Game();
     }
 
+    @Test
+    public void canRoll() {
+        game.roll(0);
+    }
+
     private class Game {
+        public void roll(int pins) {
+
+        }
     }
 }
