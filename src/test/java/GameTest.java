@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -30,6 +31,7 @@ public class GameTest {
         }
     }
 
+    @Ignore
     @Test
     public void allOnes() {
         rollMany(20, 1);
