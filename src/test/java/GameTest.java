@@ -32,11 +32,15 @@ public class GameTest {
 
     @Test
     public void oneSpare() {
-        game.roll(5);
-        game.roll(5); // spare
+        rollSpare();
         game.roll(3);
         rollMany(17, 0);
         assertThat(game.score(), is(16));
+    }
+
+    private void rollSpare() {
+        game.roll(5);
+        game.roll(5);
     }
 
     private void rollMany(int rolls, int pins) {
@@ -47,7 +51,6 @@ public class GameTest {
 
     private class Game {
         public static final int FRAME_SIZE = 10;
-        private int score = 0;
         private int[] rolls = new int[21];
         private int currentRoll = 0;
 
@@ -60,7 +63,7 @@ public class GameTest {
 
             int firstTry = 0;
             for (int frame = 0; frame < FRAME_SIZE; frame++) {
-                if (rolls[firstTry] + rolls[firstTry + 1] == 10) { // spare
+                if (isSpare(firstTry)) {
                     score += 10 + rolls[firstTry + 2];
                     firstTry += 2;
                 } else {
@@ -70,6 +73,10 @@ public class GameTest {
             }
 
             return score;
+        }
+
+        private boolean isSpare(int firstTry) {
+            return rolls[firstTry] + rolls[firstTry + 1] == 10;
         }
     }
 }
